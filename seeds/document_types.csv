@@ -1,0 +1,39 @@
+enum,document_type,constant_ts
+1,Purchase Order,purchaseOrder
+3,Quotation,quotation
+5,Billing Note,billingNote
+7,Tax Invoice,taxInvoice
+9,Receipt,receipt
+10,Separate Receipt,separateReceipt
+13,Expense,expense
+15,Vendor,vendor
+17,Withholding Tax,withHoldingTax
+19,Billing Note Partials,billingNotePartials
+21,Tax Invoice Partials,taxInvoicePartails
+23,Purchase,purchase
+25,Receivable Invoice,receivableInvoice
+29,Adjust Inventory,adjustInventory
+31,Credit Note,creditNote
+33,Debit Note,debitNote
+35,Cash Invoice,cashInvoice
+37,Payment Slip,paymentSlip
+38,Payment Slip (Reverse Accurual),
+51,Journal Entry,journalEntry
+52,Journal Entry (Draft),
+53,Purchase Voucher,purchaseVoucher
+54,Purchase Voucher (Draft),
+55,Sales Voucher,salesVoucher
+56,Sales Voucher (Draft),
+57,Payment Voucher,paymentVoucher
+58,Payment Voucher (Draft),
+59,Receipt Voucher,receiptVoucher
+60,Receipt Voucher (Draft),
+61,Conversion Balance,conversionBalance
+65,Supplier Invoice,SupplierInvoice
+67,Batch Tax Filing,BatchTaxFiling
+69,Fixed Asset,FixedAsset
+71,Depreciation,Depreciation
+73,Bank Transfer,BankTransfer
+201,Payroll,payroll
+202,Payroll Detail,payrollDetail
+203,Employee,employee
