@@ -1,0 +1,18 @@
+enum,name,application,platform
+0,Unknown,Unknown,Unknown
+1,CRM,CRM,Unknown
+101,FlowAccount Web,FlowAccount,Web
+102,FlowPayroll Web,FlowPayroll,Web
+103,MyCompany Web,MyCompany,Web
+104,AutoKey Web,Autokey,Web
+105,MyPlatform Web,MyPlatform,Web
+106,Paynow,Paynow,Service
+201,FlowAccount iOS,FlowAccount,iOS
+202,FlowPayroll iOS,FlowPayroll,iOS
+203,AutoKey iOS,Autokey,iOS
+301,FlowAccount Android,FlowAccount,Android
+302,FlowPayroll Android,FlowPayroll,Android
+303,AutoKey Android,Autokey,Android
+401,Classic FlowAccount Web,Classic FlowAccount,Web
+402,Classic FlowAccount iOS,Classic FlowAccount,iOS
+403,Classic FlowAccount Android,Classic FlowAccount,Android

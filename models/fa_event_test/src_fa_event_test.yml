@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: fa_event_test
+    database: etl
+    schema: etl
+    tables:
+      - name: engagement
