@@ -1,2 +1,2 @@
 select *
-from {{source('fa_event_test', 'fa_event_test')}}
+from {{source('fa_event_test2', 'fa_event_test')}}

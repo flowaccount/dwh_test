@@ -1,8 +1,8 @@
 version: 2
 
 sources:
-  - name: fa_event_test
-    - database: etl
-    - schema: dbt_test
-    - tables:
+  - name: fa_event_test2
+    database: etl
+    schema: dbt_test
+    tables:
       - name: fa_event_test
