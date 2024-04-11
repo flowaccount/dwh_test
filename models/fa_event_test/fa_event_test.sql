@@ -19,7 +19,7 @@ WITH renamed AS (
             'fa_event_test',
             'engagement'
         ) }}
-    WHERE createddate like '2023-01-25%'
+    WHERE createddate like '2023-01-26%'
 ),
 
 cleaned AS (
