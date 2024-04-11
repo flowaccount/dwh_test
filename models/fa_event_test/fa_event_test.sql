@@ -1,79 +1,76 @@
-WITH renamed AS (
-    SELECT
-        companyid AS company_id,
-        userid AS user_id,
-        platform AS platform,
-        createddate AS event_time,
-        documenttypeenum AS document_type_enum,
-        documenttypestring AS document_type_string,
-        documentid AS document_id,
-        isvat AS is_vat,
-        includesvat AS includes_vat,
-        totalvalue AS total_value,
-        source AS source,
-        s3key AS s3_key,
-        useragent AS user_agent,
-        documentaction AS document_action
-    FROM
-        {{ source(
-            'fa_event_test',
-            'engagement'
-        ) }}
-    WHERE createddate like '2023-01-27%'
-),
+with
+    renamed as (
+        select
+            companyid as company_id,
+            userid as user_id,
+            platform as platform,
+            createddate as event_time,
+            documenttypeenum as document_type_enum,
+            documenttypestring as document_type_string,
+            documentid as document_id,
+            isvat as is_vat,
+            includesvat as includes_vat,
+            totalvalue as total_value,
+            source as source,
+            s3key as s3_key,
+            useragent as user_agent,
+            documentaction as document_action
+        from {{ source("fa_event_test", "engagement") }}
+        where createddate like '2023-01-27%'
+    ),
 
-cleaned AS (
-    SELECT
-        {{ dbt_utils.generate_surrogate_key([
-            'document_id',
-            'event_time'
-        ]) }} AS event_id,
-        company_id::BIGINT,
-        user_id::BIGINT,
-        CASE
-            WHEN plat.enum IS NOT NULL THEN plat.application
-            WHEN e.platform IS NOT NULL THEN 'Invalid Application'
-            ELSE 'N/A'
-        END AS "application",
-        CASE
-            WHEN plat.enum IS NOT NULL THEN plat.platform
-            WHEN e.platform IS NOT NULL THEN 'Invalid Platform'
-            ELSE 'N/A'
-        END AS platform,
-        event_time,
-        CASE
-            WHEN doc.enum IS NOT NULL THEN doc.document_type
-            WHEN e.document_type_enum IS NOT NULL THEN 'Invalid Document Type'
-            ELSE 'N/A'
-        END AS document_type,
-        document_id :: BIGINT,
-        COALESCE(is_vat, FALSE) AS is_vat,
-        COALESCE(includes_vat, FALSE) AS includes_vat,
-        COALESCE(total_value, 0) :: DECIMAL(23, 8) AS total_value,
-        CASE
-            WHEN source IS NULL THEN 'N/A'
-            WHEN source IN (
-                'user-analytics',
-                'audit-stamp'
-            ) THEN source
-            ELSE 'Invalid Source'
-        END AS source,
-        COALESCE(s3_key, 'N/A') AS s3_key,
-        COALESCE(user_agent, 'N/A') AS user_agent,
-        COALESCE(document_action, 'N/A') AS document_action
-    FROM
-        renamed AS e
-    LEFT JOIN
-        {{ ref('platform_types') }} AS plat
-        ON e.platform = plat.enum
-    LEFT JOIN
-        {{ ref('document_types') }} AS doc
-        ON e.document_type_enum = doc.enum
-            OR LOWER(e.document_type_string) = LOWER(doc.constant_ts)
-)
+    cleaned as (
+        select
+            {{ dbt_utils.generate_surrogate_key(["document_id", "event_time"]) }}
+            as event_id,
+            company_id::bigint,
+            user_id::bigint,
+            case
+                when plat.enum is not null
+                then plat.application
+                when e.platform is not null
+                then 'Invalid Application'
+                else 'N/A'
+            end as "application",
+            case
+                when plat.enum is not null
+                then plat.platform
+                when e.platform is not null
+                then 'Invalid Platform'
+                else 'N/A'
+            end as platform,
+            event_time,
+            case
+                when doc.enum is not null
+                then doc.document_type
+                when e.document_type_enum is not null
+                then 'Invalid Document Type'
+                else 'N/A'
+            end as document_type,
+            document_id::bigint,
+            coalesce(is_vat, false) as is_vat,
+            coalesce(includes_vat, false) as includes_vat,
+            coalesce(total_value, 0)::decimal(23, 8) as total_value,
+            case
+                when source is null
+                then 'N/A'
+                when source in ('user-analytics', 'audit-stamp')
+                then source
+                else 'Invalid Source'
+            end as source,
+            coalesce(s3_key, 'N/A') as s3_key,
+            coalesce(user_agent, 'N/A') as user_agent,
+            coalesce(document_action, 'N/A') as document_action
+        from renamed as e
+        left join {{ ref("platform_types") }} as plat on e.platform = plat.enum
+        left join
+            {{ ref("document_types") }} as doc
+            on e.document_type_enum = doc.enum
+            or lower(e.document_type_string) = lower(doc.constant_ts)
+    )
 
-SELECT *
-FROM cleaned
+select *
+from cleaned
 {% if is_incremental() %}
-WHERE event_time > (SELECT MAX(event_time) FROM {{ this }})
+    where event_time > (select max(event_time) from {{ this }})
 {% endif %}
