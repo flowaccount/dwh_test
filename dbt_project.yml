@@ -40,3 +40,5 @@ models:
     # Applies to all files under models/example/
     fa_event_test:
       +materialized: table
+    view_model:
+      +materialized: view
