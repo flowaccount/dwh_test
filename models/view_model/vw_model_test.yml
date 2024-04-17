@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: base_mysql_default__company
+  - name: base_mysql_default__company_test
     columns:
       - name: id
       - name: company_id
@@ -9,7 +9,7 @@ models:
       - name: is_auto_renew
       - name: created_on
       - name: modified_on
-  - name: stg_mssql_accountapp_dbo__company
+  - name: stg_mssql_accountapp_dbo__company_test
     description: FlowAccount users' company information
     columns:
       - name: id
