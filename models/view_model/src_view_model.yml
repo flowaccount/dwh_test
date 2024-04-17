@@ -24,7 +24,7 @@ sources:
           - name: isadvance
           - name: isautorenew
   - name: mssql_accountapp_dbo
-    schema: "{% if target.name == 'prod' %}raw_mssql_accountapp_prod_dbo{% else %}raw_flow_staging_db_accounapp_29052017_dbo{% endif %}"
+    schema: raw_mssql_accountapp_prod_dbo
     tables:
       - name: company
         description: FlowAccount users' company information
