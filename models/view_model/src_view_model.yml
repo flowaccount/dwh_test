@@ -6,3 +6,8 @@ sources:
     schema: dbt_test
     tables:
       - name: fa_event_test
+  - name: raw_data_test
+    database: etl
+    schema: dbt_test
+    tables:
+      - name: raw_data_test
