@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: base_mysql_default__company
+    columns:
+      - name: id
+      - name: company_id
+      - name: is_advance
+      - name: is_auto_renew
+      - name: created_on
+      - name: modified_on
+  - name: stg_mssql_accountapp_dbo__company
+    description: FlowAccount users' company information
+    columns:
+      - name: id
+      - name: created_on
+      - name: modified_on
+      - name: is_active
+      - name: is_advance
+      - name: signup_channel
+      - name: support_code
+      - name: user_agent
+      - name: is_vat

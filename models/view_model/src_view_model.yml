@@ -11,3 +11,30 @@ sources:
     schema: dbt_test
     tables:
       - name: raw_data_test
+  - name: mysql_default
+    schema: raw_mysql_default
+    tables:
+      - name: company
+        identifier: airbyte_company
+        columns:
+          - name: id
+          - name: companyid
+          - name: createdon
+          - name: modifiedon
+          - name: isadvance
+          - name: isautorenew
+  - name: mssql_accountapp_dbo
+    schema: "{% if target.name == 'prod' %}raw_mssql_accountapp_prod_dbo{% else %}raw_flow_staging_db_accounapp_29052017_dbo{% endif %}"
+    tables:
+      - name: company
+        description: FlowAccount users' company information
+        columns:
+          - name: id
+          - name: createdon
+          - name: modifiedon
+          - name: isactive
+          - name: isadvance
+          - name: signupchannel
+          - name: supportcode
+          - name: useragent
+          - name: isvat
