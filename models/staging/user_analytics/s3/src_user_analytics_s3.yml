@@ -1,0 +1,65 @@
+version: 2
+
+sources:
+  - name: stg_user_analytics_s3__raw_event
+    schema: dbt_staging_user_analytics
+    tables:
+      - name: stg_user_analytics_s3__raw_event
+        description: Raw event records of all events and platforms
+        config:
+          pre-hook: SET enable_case_sensitive_identifier = TRUE
+        columns:
+          - name: record_id
+            description: Unique event record identifier
+            tests:
+              - unique
+              - not_null
+          - name: event_id
+            description: Event type identifier
+            tests:
+              - not_null
+          - name: event_category
+          - name: event_name
+          # Timestamp
+          - name: created_at
+            description: Event occurence time
+            tests:
+              - not_null
+          - name: updated_at
+          # Actor
+          - name: company_id
+            description: Company causing this event
+          - name: user_id
+            description: User causing this event
+          # Context
+          - name: platform_id
+            description: Platform which event happened
+            tests:
+              - not_null
+          - name: application
+          - name: platform
+          - name: app_version
+          - name: build_version
+          - name: product_flavor
+          - name: role_id
+          - name: role_name
+          - name: is_vat
+          - name: is_subscribed
+          - name: is_expired
+          - name: company_type_id
+          - name: company_type
+          - name: company_type_category
+          - name: company_type_tax
+          - name: company_role
+          - name: company_phone
+          - name: company_mobile
+          - name: company_fax
+          - name: plan
+          # Event payload
+          - name: payload
+          # ETL metadata
+          - name: __etl_loaded_at
+            description: Timestamp when this record is loaded
+          - name: __etl_loader_type
+          - name: __etl_loader_name
+          - name: __etl_loader_job_id
