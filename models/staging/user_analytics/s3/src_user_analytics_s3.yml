@@ -1,13 +1,11 @@
 version: 2
 
 sources:
-  - name: stg_user_analytics_s3__raw_event
+  - name: stg_user_analytics_s3
     schema: dbt_staging_user_analytics
     tables:
       - name: stg_user_analytics_s3__raw_event
         description: Raw event records of all events and platforms
-        config:
-          pre-hook: SET enable_case_sensitive_identifier = TRUE
         columns:
           - name: record_id
             description: Unique event record identifier
