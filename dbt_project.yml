@@ -44,3 +44,7 @@ models:
     # Applies to all files under models/example/
     view_model:
       +materialized: view
+    
+    stagiing:
+      user_analytics:
+        +materialized: view
